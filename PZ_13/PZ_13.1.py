@@ -16,7 +16,6 @@ for i in range(mat_lines):
     print(*[str(matrix[i][j]).ljust(3) for j in range(mat_columns)])
 print()
 
-
 # Поиск и суммирование чётных столбцов матрицы
 for j in even_columns:
     print(f"Сумма чисел {j + 1} столбца равна:", sum(matrix[i][j] for i in range(mat_lines)))
