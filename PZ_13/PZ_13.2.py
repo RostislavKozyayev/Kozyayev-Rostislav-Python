@@ -12,10 +12,8 @@ for _ in range(mat_lines):
 # Вывод матрицы
 print("\nПолученная матрица:")
 for i in range(mat_lines):
-    for j in range(mat_columns):
-        print(str(matrix[i][j]).ljust(3), end=" ")
-    print()
+    print(*[str(matrix[i][j]).ljust(3) for j in range(mat_columns)])
 
 # Поиск минимального элемента в предпоследнем столбце
 sec_last_min_num = min([matrix[i][-2] for i in range(mat_lines)])
-print("Минимальный элемент в предпоследнем столбце:", sec_last_min_num )
+print("\nМинимальный элемент в предпоследнем столбце:", sec_last_min_num )

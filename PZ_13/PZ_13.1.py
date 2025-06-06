@@ -13,13 +13,11 @@ for _ in range(mat_lines):
 # Вывод матрицы
 print("\nПолученная матрица:")
 for i in range(mat_lines):
-    for j in range(mat_columns):
-        print(str(matrix[i][j]).ljust(3), end=" ")
-    print()
+    print(*[str(matrix[i][j]).ljust(3) for j in range(mat_columns)])
+
 
 # Поиск и суммирование чётных столбцов матрицы
 for i in range(mat_lines):
-    for j in range(mat_columns):
-        if (j + 1) % 2 == 0:
-            sum_even_columns += matrix[i][j]
+    for j in list(filter(lambda j: (j + 1) % 2 == 0, range(mat_columns))):
+        sum_even_columns += matrix[i][j]
 print("\nСумма столбцов с чётным номером:", sum_even_columns)
