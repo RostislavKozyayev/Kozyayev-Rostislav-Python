@@ -4,7 +4,7 @@ from random import randint
 
 mat_lines, mat_columns = int(input("Введите кол-во строк матрицы: ")), int(input("Введите кол-во столбцов матрицы: "))
 matrix = []
-sum_even_columns = 0
+even_columns = list(filter(lambda j: (j + 1) % 2 == 0, range(mat_columns)))
 
 # Формирование матрицы
 for _ in range(mat_lines):
@@ -14,10 +14,9 @@ for _ in range(mat_lines):
 print("\nПолученная матрица:")
 for i in range(mat_lines):
     print(*[str(matrix[i][j]).ljust(3) for j in range(mat_columns)])
+print()
 
 
 # Поиск и суммирование чётных столбцов матрицы
-for i in range(mat_lines):
-    for j in list(filter(lambda j: (j + 1) % 2 == 0, range(mat_columns))):
-        sum_even_columns += matrix[i][j]
-print("\nСумма столбцов с чётным номером:", sum_even_columns)
+for j in even_columns:
+    print(f"Сумма чисел {j + 1} столбца равна:", sum(matrix[i][j] for i in range(mat_lines)))
