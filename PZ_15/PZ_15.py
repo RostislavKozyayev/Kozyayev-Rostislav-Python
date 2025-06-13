@@ -38,6 +38,14 @@ with sq.connect("trading_company.db") as con:
     cur.execute("""INSERT INTO items_sale (s_id, sale_date, product, price, branch, manager) 
                 VALUES(10, '2018-11-06', 'Арбуз', 549, 'Светофор', 'Абдулла Рахметович Атонасян')""")
 
+    # Поиск данных в таблице
+    print("\nПолученные данные:")
+    cur.execute("SELECT * FROM items_sale WHERE s_id <= 5")
+    cur.execute("SELECT product, price, discount FROM items_sale WHERE price BETWEEN 1000 AND 7000")
+    cur.execute("SELECT * FROM items_sale WHERE product LIKE 'А%'")
+    for result in cur:
+        print(result)
+
     # Изменение данных в таблице
     cur.execute("UPDATE items_sale SET discount = 35 WHERE price BETWEEN 10000 AND 50000")
     cur.execute("UPDATE items_sale SET price = price - 2000 WHERE price > 10000")
