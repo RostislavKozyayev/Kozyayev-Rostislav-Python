@@ -11,7 +11,7 @@ root.geometry("700x500")
 root.configure(bg="#336699")
 root.resizable(False, False)
 
-# Оформление стиля (можно добавить вручную стили, если нужно)
+# Оформление стиля
 style = ttk.Style()
 style.configure("Rounded.TEntry", relief="flat", padding=5)
 style.configure("Rounded.TSpinbox", relief="flat", padding=5)
