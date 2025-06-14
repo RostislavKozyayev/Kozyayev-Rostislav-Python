@@ -11,85 +11,83 @@ root.geometry("700x500")
 root.configure(bg="#336699")
 root.resizable(False, False)
 
-# Оформление стиля
 style = ttk.Style()
-style.configure("Rounded.TEntry", relief="flat", padding=5)
-style.configure("Rounded.TSpinbox", relief="flat", padding=5)
+style.theme_use("clam")
+style.configure("TEntry", padding=5)
+style.configure("TCombobox", padding=3)
+style.configure("TSpinbox", padding=3)
 
 frame = tk.LabelFrame(root, text="Registration Details", font=("Arial", 12, "bold"),
-                      fg="white", bg="#336699", bd=2, relief="groove", labelanchor="nw")
+                      fg="white", bg="#336699", bd=1, relief="solid", labelanchor="nw")
 frame.place(x=40, y=40, width=620, height=370)
 
-# University
-tk.Label(frame, text="University :", font=("Arial", 10), bg="#336699", fg="white")\
-    .grid(row=0, column=0, padx=(20, 5), pady=10, sticky="e")
-university_entry = ttk.Entry(frame, width=40)
-university_entry.grid(row=0, column=1, columnspan=3, sticky="w")
+label_right_x = 190  # Все надписи будут выровнены по правому краю относительно этой точки
+entry_x = 200        # Все поля начинаются строго после надписей
 
-# Institute
+# Университет
+tk.Label(frame, text="University :", font=("Arial", 10), bg="#336699", fg="white")\
+    .place(x=label_right_x - 80, y=20)  # Примерно 80px ширина текста
+ttk.Entry(frame, width=45).place(x=entry_x, y=20)
+
+# Институт
 tk.Label(frame, text="Institute :", font=("Arial", 10), bg="#336699", fg="white")\
-    .grid(row=1, column=0, padx=(20, 5), pady=10, sticky="e")
-institute_entry = ttk.Entry(frame, width=40)
-institute_entry.grid(row=1, column=1, columnspan=3, sticky="w")
+    .place(x=label_right_x - 72, y=60)
+ttk.Entry(frame, width=45).place(x=entry_x, y=60)
 
 # Branch
 tk.Label(frame, text="Branch :", font=("Arial", 10), bg="#336699", fg="white")\
-    .grid(row=2, column=0, padx=(20, 5), pady=10, sticky="e")
-branch_combo = ttk.Combobox(frame, width=17, values=["-- select --", "CSE", "EEE", "ME"])
+    .place(x=label_right_x - 58, y=100)
+branch_combo = ttk.Combobox(frame, values=["-- select --", "CSE", "EEE", "ME"], width=20)
 branch_combo.current(0)
-branch_combo.grid(row=2, column=1, sticky="w")
+branch_combo.place(x=entry_x, y=100)
 
 # Degree
 tk.Label(frame, text="Degree :", font=("Arial", 10), bg="#336699", fg="white")\
-    .grid(row=3, column=0, padx=(20, 5), pady=10, sticky="e")
-degree_combo = ttk.Combobox(frame, width=10, values=["-- select --", "B.Tech", "M.Tech", "PhD"])
+    .place(x=label_right_x - 60, y=140)
+degree_combo = ttk.Combobox(frame, values=["-- select --", "B.Tech", "M.Tech", "PhD"], width=15)
 degree_combo.current(0)
-degree_combo.grid(row=3, column=1, sticky="w")
+degree_combo.place(x=entry_x, y=140)
 
 degree_status = tk.StringVar()
-tk.Radiobutton(frame, text="Pursuing", variable=degree_status, value="Pursuing", bg="#336699", fg="white")\
-    .grid(row=3, column=2, sticky="w", padx=(0, 2))
-tk.Radiobutton(frame, text="Completed", variable=degree_status, value="Completed", bg="#336699", fg="white")\
-    .grid(row=3, column=3, sticky="w")
+tk.Radiobutton(frame, text="Pursuing", variable=degree_status, value="Pursuing",
+               bg="#336699", fg="white").place(x=330, y=140)
+tk.Radiobutton(frame, text="Completed", variable=degree_status, value="Completed",
+               bg="#336699", fg="white").place(x=405, y=140)
 
-# CPI and "Upto Th Semester"
-tk.Label(frame, text="Average CPI :", font=("Arial", 10), bg="#336699", fg="white")\
-    .grid(row=4, column=0, padx=(20, 5), pady=10, sticky="e")
-cpi_spin = ttk.Spinbox(frame, from_=0.0, to=10.0, increment=0.1, width=5)
-cpi_spin.grid(row=4, column=1, sticky="w")
+# CPI
+tk.Label(frame, text="Avarage CPI :", font=("Arial", 10), bg="#336699", fg="white")\
+    .place(x=label_right_x - 88, y=180)
+ttk.Spinbox(frame, from_=0.0, to=10.0, increment=0.1, width=5).place(x=entry_x, y=180)
 
-# Frame for Upto Th Semester
-semester_frame = tk.Frame(frame, bg="#336699")
-semester_frame.grid(row=4, column=2, columnspan=2, sticky="w")
+# Upto Th Semester
+tk.Label(frame, text="Upto", font=("Arial", 10), bg="#336699", fg="white")\
+    .place(x=255, y=180)
+ttk.Spinbox(frame, from_=1, to=12, width=5).place(x=295, y=180)
+tk.Label(frame, text="Th Semester", font=("Arial", 10), bg="#336699", fg="white")\
+    .place(x=350, y=180)
 
-tk.Label(semester_frame, text="Upto", font=("Arial", 10), bg="#336699", fg="white")\
-    .grid(row=0, column=0, sticky="e", padx=(0, 2))
-semester_spin = ttk.Spinbox(semester_frame, from_=1, to=12, width=5)
-semester_spin.grid(row=0, column=1, sticky="w")
-tk.Label(semester_frame, text="Th Semester", font=("Arial", 10), bg="#336699", fg="white")\
-    .grid(row=0, column=2, sticky="w", padx=(5, 0))
-
-# Experience + Years
+# Experience
 tk.Label(frame, text="Experience :", font=("Arial", 10), bg="#336699", fg="white")\
-    .grid(row=5, column=0, padx=(20, 5), pady=10, sticky="e")
-exp_spin = ttk.Spinbox(frame, from_=0, to=50, width=5)
-exp_spin.grid(row=5, column=1, sticky="w")
-
-exp_frame = tk.Frame(frame, bg="#336699")
-exp_frame.grid(row=5, column=2, columnspan=2, sticky="w")
-tk.Label(exp_frame, text="Years", font=("Arial", 10), bg="#336699", fg="white")\
-    .grid(row=0, column=0, padx=(5, 0), sticky="w")
+    .place(x=label_right_x - 85, y=220)
+ttk.Spinbox(frame, from_=0, to=50, width=5).place(x=entry_x, y=220)
+tk.Label(frame, text="Years", font=("Arial", 10), bg="#336699", fg="white")\
+    .place(x=255, y=220)
 
 # Website
 tk.Label(frame, text="Your Website Or Blog :", font=("Arial", 10), bg="#336699", fg="white")\
-    .grid(row=6, column=0, padx=(20, 5), pady=10, sticky="e")
-website_entry = ttk.Entry(frame, width=40)
+    .place(x=label_right_x - 155, y=260)
+website_entry = ttk.Entry(frame, width=45)
 website_entry.insert(0, "http://")
-website_entry.grid(row=6, column=1, columnspan=3, sticky="w")
+website_entry.place(x=entry_x, y=260)
 
-# Navigation buttons
-tk.Button(root, text="⯇", font=("Arial", 10, "bold"), bg="yellowgreen", fg="white", width=3).place(x=300, y=430)
-tk.Label(root, text="Step 2", font=("Arial", 10, "bold"), bg="#336699", fg="white").place(x=340, y=433)
-tk.Button(root, text="⯈", font=("Arial", 10, "bold"), bg="yellowgreen", fg="white", width=3).place(x=400, y=430)
+# Навигация
+tk.Button(root, text="⯇", font=("Arial", 12, "bold"), bg="yellowgreen", fg="white", width=2, height=1)\
+    .place(x=300, y=430)
+
+tk.Label(root, text="Step 2", font=("Arial", 10, "bold"), bg="#336699", fg="white")\
+    .place(x=340, y=434)
+
+tk.Button(root, text="⯈", font=("Arial", 12, "bold"), bg="yellowgreen", fg="white", width=2, height=1)\
+    .place(x=400, y=430)
 
 root.mainloop()
